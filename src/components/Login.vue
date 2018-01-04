@@ -1,6 +1,7 @@
 <template>
-  <div id="wrap"  class="animated rotateInUpLeft">
-    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container" :class="move" v-show="move.length">
+  <div id="wrap" class="animated rotateInUpLeft">
+    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
+             class="demo-ruleForm login-container" :class="move" v-show="move.length">
       <h3 class="title">旅行社管理系统登录</h3>
       <el-form-item prop="account">
         <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
@@ -10,7 +11,8 @@
       </el-form-item>
       <el-checkbox v-model="checked" checked class="remember">记住密码</el-checkbox>
       <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+        <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -20,7 +22,7 @@
   export default {
     data() {
       return {
-        move:[],
+        move: [],
         logining: false,
         ruleForm2: {
           account: '',
@@ -28,10 +30,10 @@
         },
         rules2: {
           account: [
-            { required: true, message: '请输入账号', trigger: 'blur' },
+            {required: true, message: '请输入账号', trigger: 'blur'},
           ],
           checkPass: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
+            {required: true, message: '请输入密码', trigger: 'blur'},
           ]
         },
         checked: true
@@ -39,7 +41,7 @@
     },
     methods: {
       newMove(){
-        this.move = ['animated','jackInTheBox']
+        this.move = ['animated', 'jackInTheBox']
       },
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
@@ -50,28 +52,31 @@
           if (valid) {
             this.logining = true;
             var loginParams = {
-              userID: this.ruleForm2.account,
+              "loginUserID": "huileyou",
+              "loginUserPass": "123",
+              sceneryID: this.ruleForm2.account,
               password: this.ruleForm2.checkPass,
-              loginUserID: 'huileyou',
-              loginUserPass: 123
+              "operateUserID": "",
+              "operateUserName": "",
+              "pcName": ""
             };
-            this.$http.post('http://114.55.248.116:1111/TravelAgentService.asmx/GetSceneryByPassword',{
+            this.$http.post('http://114.55.248.116:762/GateTicketService.asmx/LoginSceneryBussinessInfo ', {
               paramJson: JSON.stringify(loginParams)
-            },{
+            }, {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
             })
-            .then(data=>{
+            .then(data => {
               this.logining = false;
               var data = data.data;
-              console.log(data);
-              return;
-              if(data.backCode==200){
-                sessionStorage.setItem('admin',JSON.stringify(data.touristBussiness[0]));
-                this.$router.push({name:'getUser'});
+              console.log(data)
+              if (Number(data.backCode) == 200) {
+                console.log(data.Tm_SceneryBussinessInfo)
+                sessionStorage.setItem('admin', JSON.stringify(data.Tm_SceneryBussinessInfo));
+                this.$router.push({name: 'CateUsers'});
                 window.location.reload()
-              }else{
+              } else {
                 this.$message({
                   message: data.backResult,
                   type: 'error'
@@ -86,14 +91,14 @@
       }
     },
     mounted(){
-      document.addEventListener('keydown',(e)=>{
-        if(e.keyCode==13){
+      document.addEventListener('keydown', (e) => {
+        if (e.keyCode == 13) {
           this.handleSubmit2()
         }
       });
-      setTimeout(()=>{
+      setTimeout(() => {
         this.newMove()
-      },700)
+      }, 700)
     }
   }
 
@@ -103,17 +108,18 @@
   #wrap {
     width: 100%;
     height: 100%;
-    background: url("../assets/img/bg.jpeg") no-repeat ;
+    background: url("../assets/img/bg.jpeg") no-repeat;
     background-size: cover;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
     font-size: 14px;
   }
+
   .login-container {
     position: absolute;
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
     margin-left: -200px;
-    margin-top:-173px;
+    margin-top: -173px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -123,15 +129,18 @@
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
+
   .title {
-    font-size:16px;
-    font-weight:bold;
+    font-size: 16px;
+    font-weight: bold;
     margin: 0px auto 40px auto;
     text-align: center;
     color: #505458;
   }
+
   .remember {
     margin: 0px 0px 35px 0px;
   }
+
   }
 </style>

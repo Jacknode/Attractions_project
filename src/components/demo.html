@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="text/javascript" src="http://api.map.baidu.com/api?ak=bgZ7isSY7vGTwFSGaTMI8gmZoqZUCDIO&v=2.0"></script>
+  <style type="text/css">
+    body, html, #allmap {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+
+    #l-map {
+      height: 500px;
+      width: 100%;
+    }
+
+    #r-result {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="l-map"></div>
+<input type="text">
+<input type="text">
+</body>
+</html>
+<script>
+  var geolocation = new BMap.Geolocation();
+  geolocation.getCurrentPosition(function (r) {
+    if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+      var map = new BMap.Map("l-map");
+      // var point = new BMap.Point(116.400244, 39.92556);
+      map.centerAndZoom(r.point, 12); //定义地图等级，就是放大倍数
+      map.enableScrollWheelZoom(true); //启用地图滚轮放大缩小
+      console.log(r)
+      var marker = new BMap.Marker(r.point);// 创建标注
+      map.addOverlay(marker);  // 将标注添加到地图中
+      map.panTo(r.point);
+      // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+
+      marker.enableDragging(); //标注可拖拽
+      //marker.disableDragging();           // 不可拖拽
+
+      // 开启事件监听
+      marker.addEventListener("dragend", function (e) {
+
+        var x = e.point.lng; //经度
+        var y = e.point.lat; //纬度
+        alert("拖到的地点的经纬度：" + x + "，" + y);
+      });
+    }
+    else {
+      alert('failed' + this.getStatus());
+    }
+  }, { enableHighAccuracy: true })
+</script>

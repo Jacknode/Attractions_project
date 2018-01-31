@@ -1,7 +1,8 @@
 <template>
   <div>
-    <div id="allmap" style="width: 100%;height: 500px"></div>
-    <el-form ref="form" :model="form" label-width="80px">
+    <div id="allmap">
+    </div>
+    <el-form ref="form" :model="form" style="z-index: 9996;position: absolute;background: #fff;bottom: 0;left: 0;padding: 10px 30px;">
       <el-form-item label="经度">
         <el-input v-model="form.x"></el-input>
       </el-form-item>
@@ -76,9 +77,13 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  body, html, #allmap {
-    width: 100%;
-    height: 100%;
+ #allmap {
+   position: absolute;
+   top:0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   z-index: 9900;
     margin: 0;
     font-family: "微软雅黑";
   }

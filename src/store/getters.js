@@ -7,4 +7,5 @@ export default {
     return state.transtionActive
   },
   cateUsers:state=>state.cateUsers,
+  updateCateUserObj:state=>state.updateCateUserObj,
 }

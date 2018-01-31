@@ -2,7 +2,7 @@
   <div id="wrap" class="animated rotateInUpLeft">
     <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px"
              class="demo-ruleForm login-container" :class="move" v-show="move.length">
-      <h3 class="title">旅行社管理系统登录</h3>
+      <h3 class="title">景点管理系统登录</h3>
       <el-form-item prop="account">
         <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
       </el-form-item>
@@ -25,8 +25,8 @@
         move: [],
         logining: false,
         ruleForm2: {
-          account: '',
-          checkPass: ''
+          account: '18583013813',
+          checkPass: '123'
         },
         rules2: {
           account: [
@@ -47,6 +47,7 @@
         this.$refs.ruleForm2.resetFields();
       },
       handleSubmit2(ev) {
+        this.$router.push({name: 'CateUsers'});
         var _this = this;
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {
@@ -54,35 +55,31 @@
             var loginParams = {
               "loginUserID": "huileyou",
               "loginUserPass": "123",
-              sceneryID: this.ruleForm2.account,
-              password: this.ruleForm2.checkPass,
               "operateUserID": "",
               "operateUserName": "",
-              "pcName": ""
+              "pcName": "",
+              "userID": this.ruleForm2.account,
+              "password": this.ruleForm2.checkPass
             };
-            this.$http.post('http://114.55.248.116:762/GateTicketService.asmx/LoginSceneryBussinessInfo ', {
-              paramJson: JSON.stringify(loginParams)
-            }, {
+            this.$http.post('http://hly.mp.1000da.com.cn/TradeInfo/GetValidateByPassword', JSON.stringify(loginParams), {
               headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
               }
             })
-            .then(data => {
-              this.logining = false;
-              var data = data.data;
-              console.log(data)
-              if (Number(data.backCode) == 200) {
-                console.log(data.Tm_SceneryBussinessInfo)
-                sessionStorage.setItem('admin', JSON.stringify(data.Tm_SceneryBussinessInfo));
-                this.$router.push({name: 'CateUsers'});
-                window.location.reload()
-              } else {
-                this.$message({
-                  message: data.backResult,
-                  type: 'error'
-                });
-              }
-            })
+              .then(data => {
+                this.logining = false;
+                var data = data.data;
+                if (Number(data.resultcode) == 200) {
+                  sessionStorage.setItem('admin', JSON.stringify(data.data));
+                  this.$router.push({name: 'CateUsers'});
+                  window.location.reload()
+                } else {
+                  this.$message({
+                    message: data.resultcontent,
+                    type: 'error'
+                  });
+                }
+              })
           } else {
             console.log('error submit!!');
             return false;

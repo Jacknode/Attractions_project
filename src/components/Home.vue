@@ -75,7 +75,7 @@
                     <a href="javascript:;"><i class="icon-stack2"></i> <span>景区管理</span></a>
                     <ul>
                       <li>
-                        <router-link to="/home/cateUsers">景区商户管理</router-link>
+                        <router-link to="/home/cateUsers">商户景点管理</router-link>
                       </li>
                       <!--<li>-->
                       <!--<router-link to="/home/demo">demo</router-link>-->
@@ -144,7 +144,7 @@
       if(!user){
         this.$router.push({name:'Login'})
       }
-      this.qiankeUser = user.tbi_SceneryName;
+      this.qiankeUser = user.tm_ti_Name;
     },
     watch: {
       '$route' (to, from) {
@@ -167,7 +167,6 @@
       getUser(){
         this.$router.push({ name: 'CateUsers' })
       },
-
     }
   }
 </script>

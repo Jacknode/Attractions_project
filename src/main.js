@@ -11,13 +11,13 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import * as filters from './filters'
-import qs from 'qs';
-axios.interceptors.request.use((config) => {
-  config.data = qs.stringify(config.data);
-  return config;
-}, function(error) {
-  return Promise.reject(error);
-});
+// import qs from 'qs';
+// axios.interceptors.request.use((config) => {
+//   config.data = qs.stringify(config.data);
+//   return config;
+// }, function(error) {
+//   return Promise.reject(error);
+// });
 // 遍历所有导出的过滤器并添加到全局过滤器
 Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key]);

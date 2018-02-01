@@ -6,6 +6,10 @@ export default {
   transtionActive(state) {
     return state.transtionActive
   },
-  cateUsers:state=>state.cateUsers,
-  updateCateUserObj:state=>state.updateCateUserObj,
+  cateUsers: state => state.cateUsers,
+  updateCateUserObj: state => state.updateCateUserObj,
+  adminAttractionsTrafficSearchList: state => state.adminAttractionsTrafficSearchList,
+  adminAttractionsTrafficList: state => state.adminAttractionsTrafficList,
+  updateAdminAttractionsTrafficObj: state => state.updateAdminAttractionsTrafficObj,
+  adminAffiliationInformationList: state => state.adminAffiliationInformationList,
 }

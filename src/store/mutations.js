@@ -9,8 +9,12 @@ const state = {
     isActive: false,
     isRotateInDownRight: false
   },
-  cateUsers:[],
-  updateCateUserObj:{},
+  cateUsers:[],//初始化景点信息
+  updateCateUserObj:{},//修改景点信息obj
+  adminAttractionsTrafficSearchList:[],//搜索景点信息
+  adminAttractionsTrafficList:[],//初始化景点交通
+  updateAdminAttractionsTrafficObj:{},//修改景点交通obj
+  adminAffiliationInformationList:[],//商户信息
 };
 
 const mutations = {
@@ -39,6 +43,26 @@ const mutations = {
       }
       return false
     })[0]
+  },
+  GetAdminAttractionsTrafficSearch(state,data){
+    state.adminAttractionsTrafficSearchList = data;
+  },
+  initAdminAttractionsTraffic(state,obj){
+    state.adminAttractionsTrafficList.push(obj);
+  },
+  clearAdminAttractionsTraffic(state){
+    state.adminAttractionsTrafficList = [];
+  },
+  initUpdateAdminAttractionsTrafficObj(state,id){
+    state.updateAdminAttractionsTrafficObj = state.adminAttractionsTrafficList.filter(item=>{
+      if(item.tm_tm_ID==id){
+        return true;
+      }
+      return false;
+    })[0]
+  },
+  initAdminAffiliationInformation(state,data){
+    state.adminAffiliationInformationList = data;
   }
 };
 

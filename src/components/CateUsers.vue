@@ -19,6 +19,7 @@
           </el-form-item>
         </el-form>
       </el-col>
+
       <el-table
         :data="cateUsers"
         highlight-current-row
@@ -63,7 +64,7 @@
               <el-form-item label="纬度:">
                 <span>{{ props.row.tm_ts_Latitude + "°"  }}</span>
               </el-form-item>
-              <el-form-item label="建议价格:">
+              <el-form-item label="建议价格 (元) :">
                 <span>{{ props.row.tm_ts_SuggestPrice }}</span>
               </el-form-item>
               <el-form-item label="开放时间止:">
@@ -78,10 +79,7 @@
                 <!--<span>{{ props.row.tm_ts_ShowImage }}</span>-->
               </el-form-item>
               <el-form-item label="创建时间:">
-                <span>{{ props.row.tm_ts_CreateTime }}</span>
-              </el-form-item>
-              <el-form-item label="景区简介:">
-                <span>{{ props.row.tm_ts_Remark }}</span>
+                <span>{{ props.row.tm_ts_CreateTime.replace('T',' ') }}</span>
               </el-form-item>
               <el-form-item label="备注:">
                 <el-popover
@@ -525,25 +523,27 @@
               }
             })
           }
-          this.$refs.upload1.addEventListener('change', data => {
-            for (var i = 0; i < this.$refs.upload1.files.length; i++) {
-              this.uploadImg(this.$refs.upload1.files[i]).then(data => {
-                this.$store.dispatch('uploadImgs', {
-                  imageData: data
+          if(this.$refs.upload1){
+            this.$refs.upload1.addEventListener('change', data => {
+              for (var i = 0; i < this.$refs.upload1.files.length; i++) {
+                this.uploadImg(this.$refs.upload1.files[i]).then(data => {
+                  this.$store.dispatch('uploadImgs', {
+                    imageData: data
+                  })
+                  .then(data => {
+                    if (data) {
+                      this.ImageURL.push(data.data);
+                    } else {
+                      this.$notify({
+                        message: '图片地址不存在!',
+                        type: 'error'
+                      });
+                    }
+                  })
                 })
-                .then(data => {
-                  if (data) {
-                    this.ImageURL.push(data.data);
-                  } else {
-                    this.$notify({
-                      message: '图片地址不存在!',
-                      type: 'error'
-                    });
-                  }
-                })
-              })
-            }
-          })
+              }
+            })
+          }
         }, 30)
       },
       //添加提交
@@ -654,29 +654,9 @@
     width: 50%;
   }
 
-  #wrap {
-    background: #fff;
-  }
 
-  .formSearch {
-    padding: 20px 0 0 20px;
-  }
 
-  .userClass {
-    padding: 20px 0 0 20px;
-    font-size: 18px;
-  }
 
-  #allmap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 9900;
-    margin-top: -50px;
-    font-family: "微软雅黑";
-  }
 
   #l-map {
     height: 500px;
@@ -687,27 +667,6 @@
     width: 100%;
   }
 
-  .file {
-    position: relative;
-    display: inline-block;
-    background: #409EFF;
-    border: 1px solid #99D3F5;
-    border-radius: 4px;
-    padding: 4px 12px;
-    overflow: hidden;
-    color: #fff;
-    text-decoration: none;
-    text-indent: 0;
-    font-size: 12px;
-    line-height: 20px;
-  }
 
-  .file input {
-    position: absolute;
-    font-size: 100px;
-    right: 0;
-    top: 0;
-    opacity: 0;
-  }
 
 </style>

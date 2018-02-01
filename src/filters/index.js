@@ -66,4 +66,17 @@ export const getGrade = (value) => {
     default:
       return '未评级';
   }
+};
+
+export const getCheck = val=>{
+  switch (Number(val)) {
+    case 0:
+      return '审核中';
+    case 1:
+      return '通过';
+    case 2:
+      return '未通过'
+    default:
+      return '未知';
+  }
 }

@@ -75,7 +75,13 @@
                     <a href="javascript:;"><i class="icon-stack2"></i> <span>景区管理</span></a>
                     <ul>
                       <li>
+                        <router-link to="/home/adminAffiliationInformation">商户信息管理</router-link>
+                      </li>
+                      <li>
                         <router-link to="/home/cateUsers">商户景点管理</router-link>
+                      </li>
+                      <li>
+                        <router-link to="/home/adminAttractionsTraffic">商户交通管理</router-link>
                       </li>
                       <!--<li>-->
                       <!--<router-link to="/home/demo">demo</router-link>-->
@@ -171,6 +177,50 @@
   }
 </script>
 <style>
+  #allmap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9900;
+    margin-top: -50px;
+    font-family: "微软雅黑";
+  }
+  #wrap {
+    background: #fff;
+  }
+
+  .formSearch {
+    padding: 20px 0 0 20px;
+  }
+
+  .userClass {
+    padding: 20px 0 0 20px;
+    font-size: 18px;
+  }
+  .file {
+    position: relative;
+    display: inline-block;
+    background: #409EFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #fff;
+    text-decoration: none;
+    text-indent: 0;
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .file input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+  }
   .el-loading-spinner .circular{
     margin-left: 50%;
   }
